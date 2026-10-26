@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script>
+
+        window.addEventListener("load", function () {
+            const num = document.querySelector("#num");
+            const start = document.querySelector("#start");
+            const stop = document.querySelector("#stop");
+            let count = 0;
+            let index = 0;
+
+            start.addEventListener("click", function () {
+                index = setInterval(() => {
+                    num.innerText = count;
+                    count++;
+                }, 1000);
+            });
+
+            stop.addEventListener("click", function () {
+                clearInterval(index);
+            });
+
+
+            const visited = localStorage.getItem("visited");
+
+            if (visited === "1") {
+                alert("이미 방문한 사용자입니다.");
+            } else {
+                alert("첫 방문 환영합니다!");
+
+                localStorage.setItem("visited", "1");
+            }
+
+
+        });
+    </script>
+</head>
+<body>
+    <div>
+        <p id="num"></p>
+        <div style="display: flex;">
+            <button id="start" onclick="startTimer()">시작</button>
+            <button id="stop" onclick="stopTimer()">중지</button>
+        </div>
+    </div>
+</body>
+</html>
