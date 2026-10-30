@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product CRUD</title>
+    <script src="js/crud.js" defer></script>
+</head>
+<body>
+    <h1>상품 관리</h1>
+    <a href="index.html">홈으로</a>
+
+    <h2>상품 등록</h2>
+    <form id="productForm">
+        <div>
+            <label for="name">상품명</label>
+            <input type="text" id="name">
+        </div>
+        <div>
+            <label for="description">설명</label>
+            <input type="text" id="description">
+        </div>
+        <div>
+            <label for="price">가격</label>
+            <input type="text" id="price">
+        </div>
+        <button type="submit" id="submitBtn">등록</button>
+    </form>
+
+    <h2>상품 목록</h2>
+    <input type="text" id="search" placeholder="상품명 검색">
+    <ul id="productList"></ul>
+</body>
+</html>
