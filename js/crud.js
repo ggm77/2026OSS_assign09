@@ -67,5 +67,37 @@ async function addProduct() {
 submitBtn.addEventListener("click", function (e) {
     e.preventDefault();
 
+    if (!validateProduct()) return;
+
     addProduct();
 });
+
+function validateProduct() {
+    if (productName.value.trim() === "") {
+        alert("상품명을 입력하세요.");
+        productName.focus();
+        return false;
+    }
+    if (productName.value.trim().length > 30) {
+        alert("상품명은 30자 이하로 입력하세요.");
+        productName.focus();
+        return false;
+    }
+    if (productDescription.value.trim() === "") {
+        alert("설명을 입력하세요.");
+        productDescription.focus();
+        return false;
+    }
+    if (productPrice.value.trim() === "") {
+        alert("가격을 입력하세요.");
+        productPrice.focus();
+        return false;
+    }
+    if (isNaN(productPrice.value) || Number(productPrice.value) <= 0) {
+        alert("가격은 0보다 큰 숫자로 입력하세요.");
+        productPrice.focus();
+        return false;
+    }
+
+    return true;
+}
