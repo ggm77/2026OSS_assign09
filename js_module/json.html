@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        // js 객체 생성
+
+        const obj = {id:1, name:"Lee", score:90};
+
+        // json 문자열 변환
+        const str = JSON.stringify(obj);
+
+        // 객체로 생성
+        const parsed = JSON.parse(str);
+
+        console.log(parsed.name);
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
