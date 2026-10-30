@@ -25,6 +25,12 @@ function renderProducts(list) {
     list.forEach(product => {
         const li = document.createElement("li");
         li.textContent = `${product.name} / ${product.description} / ${product.price}`;
+
+        let updateBtn = document.createElement("button");
+        updateBtn.innerText = "수정";
+        updateBtn.addEventListener("click", () => editProduct(product));
+        li.appendChild(updateBtn);
+
         productList.appendChild(li);
     });
 }
@@ -69,6 +75,11 @@ submitBtn.addEventListener("click", function (e) {
 
     if (!validateProduct()) return;
 
+    if (editingId !== null) {
+        updateProduct();
+        return;
+    }
+
     addProduct();
 });
 
@@ -100,4 +111,44 @@ function validateProduct() {
     }
 
     return true;
+}
+
+let editingId = null;
+
+function editProduct(product) {
+    productName.value = product.name;
+    productDescription.value = product.description;
+    productPrice.value = product.price;
+
+    editingId = product.id;
+    submitBtn.innerText = "수정";
+}
+
+async function updateProduct() {
+    try {
+        const response = await fetch(`${API_URL}/${editingId}`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                name: productName.value.trim(),
+                description: productDescription.value.trim(),
+                price: productPrice.value.trim()
+            })
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP ${response.status}`);
+        }
+
+        productName.value = "";
+        productDescription.value = "";
+        productPrice.value = "";
+
+        editingId = null;
+        submitBtn.innerText = "등록";
+
+        loadProducts();
+    } catch (error) {
+        console.error(error);
+    }
 }
