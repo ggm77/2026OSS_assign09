@@ -207,3 +207,19 @@ async function deleteProduct(product) {
         console.error(error);
     }
 }
+
+let search = document.querySelector("#search");
+
+search.addEventListener("input", function () {
+
+    const keyword = search.value.trim().toLowerCase();
+
+    if (keyword === "") {
+        renderProducts(products);
+    }
+    else {
+        const filtered = products.filter((p) => p.name.toLowerCase().includes(keyword));
+
+        renderProducts(filtered);
+    }
+});
