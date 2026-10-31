@@ -3,6 +3,7 @@ const API_URL = "https://6adea7274e88f1bba4a53c73.mockapi.io/product";
 let products = [];
 
 const productList = document.querySelector("#productList");
+let message = document.querySelector("#message");
 
 async function loadProducts() {
     try {
@@ -14,8 +15,10 @@ async function loadProducts() {
 
         products = await response.json();
         renderProducts(products);
+        message.innerText = "";
     } catch (error) {
         console.error(error);
+        message.innerText = "상품 목록을 불러오지 못했습니다. (" + error.message + ")";
     }
 }
 
@@ -72,6 +75,7 @@ async function addProduct() {
         loadProducts();
     } catch (error) {
         console.error(error);
+        message.innerText = "상품 등록에 실패했습니다. (" + error.message + ")";
     }
 }
 
@@ -157,6 +161,7 @@ async function updateProduct() {
         loadProducts();
     } catch (error) {
         console.error(error);
+        message.innerText = "상품 수정에 실패했습니다. (" + error.message + ")";
     }
 }
 
@@ -205,6 +210,7 @@ async function deleteProduct(product) {
         loadProducts();
     } catch (error) {
         console.error(error);
+        message.innerText = "상품 삭제에 실패했습니다. (" + error.message + ")";
     }
 }
 
