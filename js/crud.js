@@ -31,11 +31,13 @@ function renderProducts(list) {
 
         let updateBtn = document.createElement("button");
         updateBtn.innerText = "수정";
+        updateBtn.className = "updateBtn";
         updateBtn.addEventListener("click", () => editProduct(product));
         li.appendChild(updateBtn);
 
         let deleteBtn = document.createElement("button");
         deleteBtn.innerText = "삭제";
+        deleteBtn.className = "deleteBtn";
         deleteBtn.addEventListener("click", () => deleteProduct(product));
         li.appendChild(deleteBtn);
 
