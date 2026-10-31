@@ -76,6 +76,8 @@ submitBtn.addEventListener("click", function (e) {
     if (!validateProduct()) return;
 
     if (editingId !== null) {
+        if (!validateUpdate()) return;
+
         updateProduct();
         return;
     }
@@ -151,4 +153,24 @@ async function updateProduct() {
     } catch (error) {
         console.error(error);
     }
+}
+
+function validateUpdate() {
+    let target = products.find((p) => p.id === editingId);
+
+    if (target === undefined) {
+        alert("수정할 상품을 찾을 수 없습니다.");
+        editingId = null;
+        submitBtn.innerText = "등록";
+        return false;
+    }
+    if (target.name === productName.value.trim()
+        && target.description === productDescription.value.trim()
+        && target.price === productPrice.value.trim()) {
+        alert("변경된 내용이 없습니다.");
+        productName.focus();
+        return false;
+    }
+
+    return true;
 }
