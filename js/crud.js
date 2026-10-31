@@ -31,6 +31,11 @@ function renderProducts(list) {
         updateBtn.addEventListener("click", () => editProduct(product));
         li.appendChild(updateBtn);
 
+        let deleteBtn = document.createElement("button");
+        deleteBtn.innerText = "삭제";
+        deleteBtn.addEventListener("click", () => deleteProduct(product));
+        li.appendChild(deleteBtn);
+
         productList.appendChild(li);
     });
 }
@@ -173,4 +178,32 @@ function validateUpdate() {
     }
 
     return true;
+}
+
+async function deleteProduct(product) {
+
+    if (!confirm("삭제하시겠습니까?")) return;
+
+    try {
+        const response = await fetch(`${API_URL}/${product.id}`, {
+            method: "DELETE"
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP ${response.status}`);
+        }
+
+        if (editingId === product.id) {
+            productName.value = "";
+            productDescription.value = "";
+            productPrice.value = "";
+
+            editingId = null;
+            submitBtn.innerText = "등록";
+        }
+
+        loadProducts();
+    } catch (error) {
+        console.error(error);
+    }
 }
